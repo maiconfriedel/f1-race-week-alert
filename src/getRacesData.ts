@@ -4,7 +4,7 @@ import moment from "moment";
 import emojis from "./emojis.json";
 import { formatDate } from "./utils/formatDate";
 
-export async function getData() {
+export async function getRacesData() {
   const endOfWeek = moment(new Date())
     .endOf("week")
     .add(1, "day")

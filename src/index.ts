@@ -1,11 +1,11 @@
 import { Client, Events, GatewayIntentBits, TextChannel } from "discord.js";
 import "dotenv/config";
-import { getData } from "./getData";
+import { getRacesData } from "./getRacesData";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, async (c) => {
-  const message = await getData();
+  const message = await getRacesData();
 
   if (message) {
     const channel = client.channels.cache.find(
