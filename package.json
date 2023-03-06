@@ -1,6 +1,9 @@
 {
   "name": "f1-race-week-alert",
   "version": "1.0.0",
+  "engines": {
+    "node": "18"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "axios": "^1.3.4",
