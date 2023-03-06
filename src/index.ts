@@ -8,11 +8,15 @@ client.once(Events.ClientReady, async (c) => {
   const message = await getRacesData();
 
   if (message) {
-    const channel = client.channels.cache.find(
+    const channels = client.channels.cache.filter(
       (a: any) => a.name.toLowerCase().indexOf("alertas-f1") >= 0
-    ) as TextChannel;
+    );
 
-    await channel.send(message);
+    for (let index = 0; index < channels.size; index++) {
+      const channel = channels.at(index);
+
+      await (<TextChannel>channel).send(message);
+    }
   }
   process.exit(0);
 });
