@@ -5,6 +5,7 @@ import { getRacesData } from "./getRacesData";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, async (c) => {
+  console.log(`Ready! Logged in as ${c.user.tag}`);
   const message = await getRacesData();
 
   if (message) {
