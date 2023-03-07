@@ -1,10 +1,12 @@
 import axios from "axios";
-import { translate } from "free-translate";
 import moment from "moment";
-import emojis from "./emojis.json";
+import races from "./races.json";
 import { formatDate } from "./utils/formatDate";
 
-export async function getRacesData() {
+export async function getRacesData(): Promise<{
+  message: string;
+  image_url: string;
+}> {
   const endOfWeek = moment(new Date())
     .endOf("week")
     .add(1, "day")
@@ -21,30 +23,31 @@ export async function getRacesData() {
   );
 
   let message = "";
+  let image_url = "";
 
   if (raceData) {
     message =
-      ":checkered_flag: :checkered_flag: IT'S RACE WEEK :checkered_flag: :checkered_flag:  \n\n";
+      "@here :checkered_flag: :checkered_flag: IT'S RACE WEEK :checkered_flag: :checkered_flag:  \n\n";
 
-    const translatedText = await translate(raceData.raceName, {
-      from: "en",
-      to: "pt-BR",
-    });
-
-    const emoji = emojis.find(
+    const race = races.find(
       (a) =>
-        a.country.toLocaleLowerCase().trim() ==
-        raceData.Circuit.Location.country.toLocaleLowerCase().trim()
+        a.raceName.toLocaleLowerCase().trim() ==
+        raceData.raceName.toLocaleLowerCase().trim()
     );
+
+    image_url = race?.image_url;
 
     message =
       message +
-      (emoji?.emoji ?? ":checkered_flag:") +
+      (race?.flag_emoji ?? ":checkered_flag:") +
       " " +
-      translatedText +
+      raceData.raceName +
       " " +
-      (emoji?.emoji ?? ":checkered_flag:") +
-      "\n\n";
+      (race?.flag_emoji ?? ":checkered_flag:") +
+      "\n";
+
+    message =
+      message + `:motorway: ${raceData.Circuit.circuitName} :motorway: \n\n`;
 
     const raceTime = formatDate(raceData.date + raceData.time);
 
@@ -87,5 +90,5 @@ export async function getRacesData() {
     }
   }
 
-  return message;
+  return { message, image_url };
 }

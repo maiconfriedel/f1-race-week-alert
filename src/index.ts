@@ -1,4 +1,10 @@
-import { Client, Events, GatewayIntentBits, TextChannel } from "discord.js";
+import {
+  AttachmentBuilder,
+  Client,
+  Events,
+  GatewayIntentBits,
+  TextChannel,
+} from "discord.js";
 import "dotenv/config";
 import { getRacesData } from "./getRacesData";
 
@@ -8,7 +14,7 @@ client.once(Events.ClientReady, async (c) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
   const message = await getRacesData();
 
-  if (message) {
+  if (message.message) {
     const channels = client.channels.cache.filter(
       (a: any) => a.name.toLowerCase().indexOf("alertas-f1") >= 0
     );
@@ -16,7 +22,18 @@ client.once(Events.ClientReady, async (c) => {
     for (let index = 0; index < channels.size; index++) {
       const channel = channels.at(index);
 
-      await (<TextChannel>channel).send(message);
+      if (message.image_url) {
+        const attachment = new AttachmentBuilder(message.image_url);
+
+        await (<TextChannel>channel).send({
+          content: message.message,
+          files: [attachment],
+        });
+      } else {
+        await (<TextChannel>channel).send({
+          content: message.message,
+        });
+      }
     }
   }
   process.exit(0);
