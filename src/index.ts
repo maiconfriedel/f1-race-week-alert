@@ -12,26 +12,26 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, async (c) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
-  const message = await getRacesData();
+  const race = await getRacesData();
 
-  if (message.message) {
-    const channels = client.channels.cache.filter(
-      (a: any) => a.name.toLowerCase().indexOf("alertas-f1") >= 0
-    );
+  const channelsIds = ["1082389835249111070"];
 
-    for (let index = 0; index < channels.size; index++) {
-      const channel = channels.at(index);
+  for (let index = 0; index < channelsIds.length; index++) {
+    if (race.message) {
+      const channel = (await client.channels.fetch(
+        channelsIds.at(index)
+      )) as TextChannel;
 
-      if (message.image_url) {
-        const attachment = new AttachmentBuilder(message.image_url);
+      if (race.image_url) {
+        const attachment = new AttachmentBuilder(race.image_url);
 
-        await (<TextChannel>channel).send({
-          content: message.message,
+        await channel.send({
+          content: race.message,
           files: [attachment],
         });
       } else {
-        await (<TextChannel>channel).send({
-          content: message.message,
+        await channel.send({
+          content: race.message,
         });
       }
     }
