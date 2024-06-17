@@ -136,5 +136,11 @@
     "country": "UAE",
     "flag_emoji": ":flag_ae:",
     "image_url": "https://cdn-1.motorsport.com/images/amp/68yNkeG0/s1000/max-verstappen-red-bull-racing.jpg"
+  },
+  {
+    "raceName": "Chinese Grand Prix",
+    "country": "China",
+    "flag_emoji": ":flag_cn:",
+    "image_url": "https://mclaren.bloomreach.io/delivery/resources/content/gallery/mclaren-racing/formula-1/2024/schedule/chinese-grand-prix/race/report/china-2024-race-6.jpg"
   }
 ]

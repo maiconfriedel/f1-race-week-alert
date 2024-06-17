@@ -77,9 +77,9 @@ export async function getRacesData(): Promise<{
 
     if (sprintTime) {
       message = message + `**Treino Livre 1:** Dia ${freePractice1Time}\n`;
-      message = message + `**Qualificação:** Dia ${qualifyingTime}\n`;
-      message = message + `**Treino Livre 2:** Dia ${freePractice2Time}\n`;
-      message = message + `**Corrida Sprint:** Dia ${sprintTime}\n`;
+      message = message + `**Qualificação:** Dia ${freePractice2Time}\n`;
+      message = message + `**Qualificação Sprint:** Dia ${sprintTime}\n`;
+      message = message + `**Corrida Sprint:** Dia ${qualifyingTime}\n`;
       message = message + `**Corrida:** Dia ${raceTime}`;
     } else {
       message = message + `**Treino Livre 1:** Dia ${freePractice1Time}\n`;
